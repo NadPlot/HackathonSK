@@ -1,0 +1,21 @@
+from fastapi import Depends, FastAPI, HTTPException
+from sqlalchemy.orm import Session
+from . import crud, schemas
+
+from .database import SessionLocal, engine, Areas
+
+app = FastAPI()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+@app.get("/areas/{id}", response_model=schemas.Areas)
+def read_areas(id: int, db: Session = Depends(get_db)):
+    areas = crud.get_areas(db, id=id)
+    return areas
