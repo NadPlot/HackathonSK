@@ -77,7 +77,7 @@ class AddedBase(BaseModel):
 
 
 class AddedCreate(AddedBase):
-    pass
+    id: int
 
 
 class AddedRawDataOut(BaseModel):
@@ -87,7 +87,7 @@ class AddedRawDataOut(BaseModel):
         orm_mode = True
 
 
-class AddedStatusOut(AddedBase):
+class AddedIDOut(AddedBase):
     id: int
 
     class Config:
