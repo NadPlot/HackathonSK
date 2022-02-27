@@ -37,9 +37,9 @@ class User(BaseModel):
 
 
 class Coords(BaseModel):
-    latitude: float
-    longitude: float
-    height: float
+    latitude: str
+    longitude: str
+    height: str
 
 
 class Level(BaseModel):
@@ -50,11 +50,11 @@ class Level(BaseModel):
 
 
 class Images(BaseModel):
-    sedlo: Optional[list] = None
-    Nord: Optional[list] = None
-    West: Optional[list] = None
-    South: Optional[list]= None
-    East: Optional[list] = None
+    sedlo: Optional[dict] = None
+    Nord: Optional[dict] = None
+    West: Optional[dict] = None
+    South: Optional[dict]= None
+    East: Optional[dict] = None
 
 
 class RawData(BaseModel):
@@ -76,8 +76,27 @@ class AddedBase(BaseModel):
     status: Optional[str] = None
 
 
+# поля, отправленные в тело запроса (JSON)
+class AddedRaw(BaseModel):
+    id: int
+    beautyTitle: str
+    title: str
+    other_titles: Optional[str] = None
+    connect: Optional[str]
+    add_time: str
+    user: User
+    coords: Coords
+    type: Optional[str] = 'pass'
+    level: Level
+    images: Images
+
+
+# MVP1: отправить информацию об объекте на сервер
 class AddedCreate(AddedBase):
     id: int
+
+    class Config:
+        orm_mode = True
 
 
 class AddedRawDataOut(BaseModel):
@@ -87,6 +106,7 @@ class AddedRawDataOut(BaseModel):
         orm_mode = True
 
 
+# MVP2: получить одну запись (перевал) по её id.
 class AddedIDOut(AddedBase):
     id: int
 
