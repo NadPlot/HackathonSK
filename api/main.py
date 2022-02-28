@@ -39,7 +39,7 @@ def add_to_added(raw_data: schemas.AddedRaw, db: Session = Depends(get_db)):
     #     img=raw_data.images
     # )
 
-    new_add = Added(id=2, date_added=date_added, raw_data=raw, images=raw_data.images, status='new')
+    new_add = Added(date_added=date_added, raw_data=raw, images=raw_data.images, status='new')
     #db.add(images, new_add)
     db.commit()
     return new_add
