@@ -44,11 +44,11 @@ class Level(BaseModel):
 
 
 class Images(BaseModel):
-    sedlo: Optional[dict] = None
-    Nord: Optional[dict] = None
-    West: Optional[dict] = None
-    South: Optional[dict]= None
-    East: Optional[dict] = None
+    sedlo: Optional[list] = None
+    Nord: Optional[list] = None
+    West: Optional[list] = None
+    South: Optional[list]= None
+    East: Optional[list] = None
 
 
 # столбец raw_data (pereval_added)
@@ -65,10 +65,6 @@ class RawData(BaseModel):
 
 
 # поля, отправленные в теле запроса (JSON)
-class ImagesRaw(BaseModel):
-    images: Optional[list[dict]] = None
-
-
 class AddedRaw(BaseModel):
     id: int
     beautyTitle: str
@@ -80,7 +76,7 @@ class AddedRaw(BaseModel):
     coords: Coords
     type: Optional[str] = 'pass'
     level: Level
-    images: ImagesRaw
+    images: Optional[list[dict]] = None
 
 
 # MVP1: отправить информацию об объекте на сервер

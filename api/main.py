@@ -16,11 +16,48 @@ def get_db():
     finally:
         db.close()
 
+# for testing
+a = {
+  "id": 12865,
+  "beautyTitle": "пер.",
+  "title": "Новый",
+  "other_titles": "перевал",
+  "connect": "",
+  "add_time": "2021-09-25 13:18:13",
+  "user": {
+    "id": "vpupkin",
+    "email": "user@email.tld",
+    "phone": 79031234567,
+    "fam": "Пупкин",
+    "name": "Василий",
+    "otc": "Иванович"
+  },
+  "coords": {
+    "latitude": "12.5565",
+    "longitude": "7.5546",
+    "height": "1205"
+  },
+  "type": "pass",
+  "level": {
+    "winter": "1А",
+    "summer": "",
+    "autumn": "2А",
+    "spring": ""
+  },
+  "images": [
+      {"url":"http://...", "title":"Подъём. Фото №1"},
+      {"url":"http://...", "title":"Подъём. Фото №2"},
+      {"url":"http://...", "title":"Седловина"},
+      {"url":"http://...", "title":"Спуск. Фото №99"},
+      {"url":"http://...", "title":"Спуск. Фото №99"}
+  ]
+}
+
 
 # MVP1: отправить информацию об объекте на сервер
 @app.post("/submitData/", response_model=schemas.Added)
 def add_to_added(raw_data: schemas.AddedRaw, db: Session = Depends(get_db)):
-    date_added = raw_data.add_time  # get str - need datetime!!!
+    date_added = raw_data.add_time
     pereval_id = raw_data.id
     raw = schemas.RawData(
         pereval_id=pereval_id,
@@ -52,7 +89,7 @@ async def read_added_id(id: int, db: Session = Depends(get_db)):
     return added
 
 
-
+# for testing
 @app.get("/areas/{id}", response_model=schemas.Areas)
 def read_areas(id: int, db: Session = Depends(get_db)):
     areas = crud.get_areas(db, id=id)
