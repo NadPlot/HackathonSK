@@ -3,14 +3,10 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-# pereval_areas
+# таблица pereval_areas
 class AreasBase(BaseModel):
     title: Optional[str] = None
     id_parent: Optional[int] = None
-
-
-class AreasCreate(AreasBase):
-    pass
 
 
 class Areas(AreasBase):
@@ -19,11 +15,22 @@ class Areas(AreasBase):
     class Config:
         orm_mode = True
 
+
 # таблица pereval_images
 class ImagesBase(BaseModel):
+    date_added: datetime.datetime
+    img: Optional[str] = None
+
+
+class ImageCreate(ImagesBase):
+    pass
+
+
+class Images(ImagesBase):
     id: int
-    date_added: datetime.date
-    img: bytes
+
+    class Config:
+        orm_mode = True
 
 
 # классы для табл pereval_added:
@@ -70,7 +77,8 @@ class RawData(BaseModel):
 
 
 class AddedBase(BaseModel):
-    date_added: datetime.date
+
+    date_added: datetime.datetime
     raw_data: RawData
     images: Images
     status: Optional[str] = None
@@ -93,6 +101,10 @@ class AddedRaw(BaseModel):
 
 # MVP1: отправить информацию об объекте на сервер
 class AddedCreate(AddedBase):
+    pass
+
+
+class Added(AddedBase):
     id: int
 
     class Config:
