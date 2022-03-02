@@ -1,33 +1,29 @@
 import datetime
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 # таблица pereval_images
 class ImagesBase(BaseModel):
     date_added: datetime.datetime
-    img: Optional[str] = None
+    img: Optional[bytes] = None
 
 
-class ImageCreate(ImagesBase):
-    pass
-
-
-class Images(ImagesBase):
+class ImagesCreate(ImagesBase):
     id: int
 
     class Config:
         orm_mode = True
 
 
-# для поля raw_data (табл pereval_added):
+# для AddedRaw, то что получаем (JSON):
 class User(BaseModel):
     id: str
     email: str
-    phone: int
-    fam: str
-    name: str
-    otc: str
+    phone: Optional[int] = None
+    fam: Optional[str] = None
+    name: Optional[str] = None
+    otc: Optional[str] = None
 
 
 class Coords(BaseModel):
@@ -47,22 +43,8 @@ class Images(BaseModel):
     sedlo: Optional[list] = None
     Nord: Optional[list] = None
     West: Optional[list] = None
-    South: Optional[list]= None
+    South: Optional[list] = None
     East: Optional[list] = None
-
-
-# столбец raw_data (pereval_added)
-class RawData(BaseModel):
-    pereval_id: int
-    beautyTitle: str
-    title: str
-    other_titles: Optional[str] = None
-    connect: Optional[str] = None
-    user: User
-    coords: Coords
-    type: Optional[str] = 'pass'
-    level: Level
-
 
 # поля, отправленные в теле запроса (JSON)
 class AddedRaw(BaseModel):
@@ -72,18 +54,31 @@ class AddedRaw(BaseModel):
     other_titles: Optional[str] = None
     connect: Optional[str]
     add_time: str
-    user: User
-    coords: Coords
+    user: User = Field()
+    coords: Coords = Field()
     type: Optional[str] = 'pass'
-    level: Level
-    images: Optional[list[dict]] = None
+    level: Level = Field()
+    images: Optional[Images] # Optional[list[dict]] = None
+
+
+# столбец raw_data (table pereval_added)
+class RawData(BaseModel):
+    pereval_id: int
+    beautyTitle: str
+    title: str
+    other_titles: Optional[str] = None
+    connect: Optional[str] = None
+    user: dict
+    coords: dict
+    type: str = 'pass'
+    level: dict
 
 
 # MVP1: отправить информацию об объекте на сервер
 class AddedBase(BaseModel):
     date_added: datetime.datetime
-    raw_data: RawData
-    images: Images
+    raw_data: RawData = Field()
+    images: Images = Field()
     status: Optional[str] = None
 
 
@@ -107,19 +102,6 @@ class AddedRawDataOut(BaseModel):
 
 # MVP2: получить одну запись (перевал) по её id.
 class AddedIDOut(AddedBase):
-    id: int
-
-    class Config:
-        orm_mode = True
-
-
-# таблица pereval_areas
-class AreasBase(BaseModel):
-    title: Optional[str] = None
-    id_parent: Optional[int] = None
-
-
-class Areas(AreasBase):
     id: int
 
     class Config:
