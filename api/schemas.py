@@ -58,7 +58,7 @@ class AddedRaw(BaseModel):
     coords: Coords = Field()
     type: Optional[str] = 'pass'
     level: Level = Field()
-    images: Optional[Images] # Optional[list[dict]] = None
+    images: Optional[Images] = None
 
 
 # столбец raw_data (table pereval_added)
@@ -78,7 +78,7 @@ class RawData(BaseModel):
 class AddedBase(BaseModel):
     date_added: datetime.datetime
     raw_data: RawData = Field()
-    images: Images = Field()
+    images: Optional[dict] = None
     status: Optional[str] = None
 
 
@@ -88,21 +88,6 @@ class AddedCreate(AddedBase):
 
 class Added(AddedBase):
     pass
-
-    class Config:
-        orm_mode = True
-
-
-class AddedRawDataOut(BaseModel):
-    raw_data: RawData
-
-    class Config:
-        orm_mode = True
-
-
-# MVP2: получить одну запись (перевал) по её id.
-class AddedIDOut(AddedBase):
-    id: int
 
     class Config:
         orm_mode = True

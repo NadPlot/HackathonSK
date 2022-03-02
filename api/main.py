@@ -16,7 +16,6 @@ description = """
 app = FastAPI(
     title="REST API FSTR",
     description=description,
-
 )
 
 
@@ -26,43 +25,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
-# for testing
-a = {
-  "id": 12865,
-  "beautyTitle": "пер.",
-  "title": "Новый",
-  "other_titles": "перевал",
-  "connect": "",
-  "add_time": "2021-09-25 13:18:13",
-  "user": {
-    "id": "vpupkin",
-    "email": "user@email.tld",
-    "phone": 79031234567,
-    "fam": "Пупкин",
-    "name": "Василий",
-    "otc": "Иванович"
-  },
-  "coords": {
-    "latitude": "12.5565",
-    "longitude": "7.5546",
-    "height": "1205"
-  },
-  "type": "pass",
-  "level": {
-    "winter": "1А",
-    "summer": "",
-    "autumn": "2А",
-    "spring": ""
-  },
-  "images": [
-      {"url":"http://...", "title":"Подъём. Фото №1"},
-      {"url":"http://...", "title":"Подъём. Фото №2"},
-      {"url":"http://...", "title":"Седловина"},
-      {"url":"http://...", "title":"Спуск. Фото №99"},
-      {"url":"http://...", "title":"Спуск. Фото №99"}
-  ]
-}
 
 
 # MVP1: отправить информацию об объекте на сервер
@@ -88,7 +50,7 @@ def add_to_added(raw_data: schemas.AddedRaw, db: Session = Depends(get_db)):
     #     img=raw_data.images
     # )
 
-    new_add = Added(date_added=date_added, raw_data=raw, images=raw_data.images, status='new')
+    new_add = Added(date_added=date_added, raw_data=raw, images=dict(raw_data.images), status='new')
     #db.add(images, new_add)
     db.add(new_add)
     db.commit()
@@ -96,7 +58,13 @@ def add_to_added(raw_data: schemas.AddedRaw, db: Session = Depends(get_db)):
 
 
 # MVP2: получить одну запись (перевал) по её id.
-@app.get("/submitData/{id}/", response_model=schemas.AddedIDOut)
+@app.get("/submitData/{id}/", response_model=schemas.Added)
 async def read_added_id(id: int, db: Session = Depends(get_db)):
     added = crud.get_added_id(db, id=id)
     return added
+
+
+# MVP2: получить статус модерации отправленных данных
+@app.get("/submitData/{id}/status", response_model=schemas.Added, response_model_exclude={"date_added", "raw_data", "images"})
+async def read_added_id(id: int, db: Session = Depends(get_db)):
+    return crud.get_added_id(db, id=id)
