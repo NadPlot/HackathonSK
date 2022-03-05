@@ -9,7 +9,7 @@ FSTR_DB_PORT = os.environ.get('FSTR_DB_PORT')
 FSTR_LOGIN = os.environ.get('FSTR_LOGIN')
 FSTR_PASS = os.environ.get('FSTR_PASS')
 
-DATABASE_URL = f"postgresql://{FSTR_LOGIN}:{FSTR_PASS}@{FSRT_DB_HOST}:{FSTR_DB_PORT}/HakatonSK" #change base name to pereval
+DATABASE_URL = f"postgresql://{FSTR_LOGIN}:{FSTR_PASS}@{FSRT_DB_HOST}:{FSTR_DB_PORT}/pereval"
 
 engine = create_engine(DATABASE_URL)
 

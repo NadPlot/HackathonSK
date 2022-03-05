@@ -27,6 +27,11 @@ def get_db():
         db.close()
 
 
+@app.get("/")
+async def root():
+    return {"message": "REST API FSTR"}
+
+
 # MVP1: отправить информацию об объекте на сервер
 @app.post("/submitData/", response_model=schemas.Added)
 def add_to_added(raw_data: schemas.AddedRaw, db: Session = Depends(get_db)):
@@ -59,12 +64,12 @@ def add_to_added(raw_data: schemas.AddedRaw, db: Session = Depends(get_db)):
 
 # MVP2: получить одну запись (перевал) по её id.
 @app.get("/submitData/{id}/", response_model=schemas.Added)
-async def read_added_id(id: int, db: Session = Depends(get_db)):
+def read_added_id(id: int, db: Session = Depends(get_db)):
     added = crud.get_added_id(db, id=id)
     return added
 
 
 # MVP2: получить статус модерации отправленных данных
 @app.get("/submitData/{id}/status", response_model=schemas.Added, response_model_exclude={"date_added", "raw_data", "images"})
-async def read_added_id(id: int, db: Session = Depends(get_db)):
+def read_added_id(id: int, db: Session = Depends(get_db)):
     return crud.get_added_id(db, id=id)
