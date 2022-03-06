@@ -11,7 +11,9 @@ http://34.123.237.228:8000/docs
 Отправка информации на сервер - код API(MVP1): http://34.123.237.228:8000/docs#/default/add_to_added_submitData__post
 Пример запроса MVP1: 
 Request URL:http://34.123.237.228:8000/submitData/
+
 Request body (JSON):
+
 {
   "id": 12865,
   "beautyTitle": "пер.",
