@@ -9,7 +9,9 @@ http://34.123.237.228:8000/docs
 
 Задача MVP1:
 Отправка информации на сервер - код API(MVP1): http://34.123.237.228:8000/docs#/default/add_to_added_submitData__post
+
 Пример запроса MVP1: 
+
 Request URL:http://34.123.237.228:8000/submitData/
 
 Request body (JSON):
@@ -53,19 +55,27 @@ Request body (JSON):
 Server response: "POST /submitData/ HTTP/1.1" 200 OK
 
 
+
 Задача MVP2:
 Пример запроса MVP2, получить одну запись (перевал) по её id:
 http://34.123.237.228:8000/docs#/default/read_added_id_submitData__id___get
+
 Пример запроса MVP2: 
+
 Request URL:http://34.123.237.228:8000/submitData/2/
+
 Parameters (id): 2
 Server response: "GET /submitData/2/ HTTP/1.1" 200 OK
 
 
+
 Пример запроса MVP2, получить статус модерации отправленных данных:
 http://34.123.237.228:8000/docs#/default/read_added_id_submitData__id__status_get
+
 Пример запроса MVP2: 
+
 Request URL:http://34.123.237.228:8000/submitData/2/status
+
 Parameters (id): 2
 Server response: "GET /submitData/2/status HTTP/1.1" 200 OK
 Response body: 
@@ -74,7 +84,9 @@ Response body:
 }
 
 
+
 Инструкция по публикации REST API на хостинг:
+
 База данных в Google Cloud Platform,
 Создана VM в Google Cloud Platform (Debian), установлены необходимые пакеты:
 fastapi, sqlalchemy, psycopg2, uvicorn[standart]
