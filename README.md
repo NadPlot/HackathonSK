@@ -6,45 +6,10 @@ REST API для мобильного приложения, с помощью к�
 Задача MVP1:
 Отправка информации на сервер - код API(MVP1): 
 Request URL: POST/submitData/
-Request body (JSON):
-{
-  "id": 12865,
-  "beautyTitle": "пер.",
-  "title": "Новый",
-  "other_titles": "перевал2",
-  "connect": "",
-  "add_time": "2021-09-30 13:28:10",
-  "user": {
-    "id": "vpupkin",
-    "email": "user@email.tld",
-    "phone": 79031234567,
-    "fam": "Пупкин",
-    "name": "Василий",
-    "otc": "Иванович"
-  },
-  "coords": {
-    "latitude": "11.4565",
-    "longitude": "7.5546",
-    "height": "1315"
-  },
-  "type": "pass",
-  "level": {
-    "winter": "1А",
-    "summer": "",
-    "autumn": "2А",
-    "spring": ""
-  },
-  "images": [
-      {"url":"http://...", "title":"Подъём. Фото №1"},
-      {"url":"http://...", "title":"Подъём. Фото №2"},
-      {"url":"http://...", "title":"Седловина"},
-      {"url":"http://...", "title":"Спуск. Фото №99"},
-      {"url":"http://...", "title":"Спуск. Фото №99"}
-  ]
-}
+
+Request body (JSON)
 
 Server response: "POST /submitData/ HTTP/1.1" 200 OK
-
 
 Задача MVP2:
 GET /submitData/:id — получить одну запись (перевал) по её id
