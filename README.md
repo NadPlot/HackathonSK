@@ -30,6 +30,7 @@ Response body:
 1. Развернут dump базы данных (на локальном компьютере (а затем на хостинге), PostgreSQL). Использован Google Cloud Platform.
 2. Создана VM в Google Cloud Platform (Debian), установлены необходимые пакеты: fastapi, sqlalchemy, psycopg2, uvicorn[standart]. 
 
+
 Отзыв куратора и ментора по итогам участия в хакатоне:
 Полученные баллы/из возможных:
 
